@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-function ShowMainPage (props) {
+class ShowMainPage extends Component {
+  render() {
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -13,7 +14,7 @@ function ShowMainPage (props) {
               <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {props.currentlyReading.map((book) => (
+                  {this.props.books.map((book) => ( book.bookshelf === 'currentlyReading' && (
                     <li key={book.id}>
                       <div className="book">
                         <div className="book-top">
@@ -32,7 +33,7 @@ function ShowMainPage (props) {
                         <div className="book-authors">{book.authors}</div>
                       </div>
                     </li>
-                  ))}
+                  )))}
                 </ol>
               </div>
             </div>
@@ -40,7 +41,7 @@ function ShowMainPage (props) {
               <h2 className="bookshelf-title">Want to Read</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {props.wantToRead.map((book) => (
+                  {this.props.books.map((book) => ( book.bookshelf === 'wantToRead' && (
                     <li key={book.id}>
                       <div className="book">
                         <div className="book-top">
@@ -59,7 +60,7 @@ function ShowMainPage (props) {
                         <div className="book-authors">{book.authors}</div>
                       </div>
                     </li>
-                  ))}
+                  )))}
                 </ol>
               </div>
             </div>
@@ -67,7 +68,7 @@ function ShowMainPage (props) {
               <h2 className="bookshelf-title">Read</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {props.read.map((book) => (
+                  {this.props.books.map((book) => ( book.bookshelf === 'read' && (
                     <li key={book.id}>
                       <div className="book">
                         <div className="book-top">
@@ -86,7 +87,7 @@ function ShowMainPage (props) {
                         <div className="book-authors">{book.authors}</div>
                       </div>
                     </li>
-                  ))}
+                  )))}
                 </ol>
               </div>
             </div>
@@ -99,6 +100,7 @@ function ShowMainPage (props) {
         </div>
       </div>
     )
+  }
 }
 
 export default ShowMainPage
