@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-class ShowMainPage extends Component {
-  render() {
+function ShowMainPage (props) {
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -14,7 +13,7 @@ class ShowMainPage extends Component {
               <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {this.props.books.map((book) => ( book.bookshelf === 'currentlyReading' && (
+                  {props.currentlyReading.map((book) => (
                     <li key={book.id}>
                       <div className="book">
                         <div className="book-top">
@@ -33,7 +32,7 @@ class ShowMainPage extends Component {
                         <div className="book-authors">{book.authors}</div>
                       </div>
                     </li>
-                  )))}
+                  ))}
                 </ol>
               </div>
             </div>
@@ -41,7 +40,7 @@ class ShowMainPage extends Component {
               <h2 className="bookshelf-title">Want to Read</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {this.props.books.map((book) => ( book.bookshelf === 'wantToRead' && (
+                  {props.wantToRead.map((book) => (
                     <li key={book.id}>
                       <div className="book">
                         <div className="book-top">
@@ -60,7 +59,7 @@ class ShowMainPage extends Component {
                         <div className="book-authors">{book.authors}</div>
                       </div>
                     </li>
-                  )))}
+                  ))}
                 </ol>
               </div>
             </div>
@@ -68,7 +67,7 @@ class ShowMainPage extends Component {
               <h2 className="bookshelf-title">Read</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {this.props.books.map((book) => ( book.bookshelf === 'read' && (
+                  {props.read.map((book) => (
                     <li key={book.id}>
                       <div className="book">
                         <div className="book-top">
@@ -87,7 +86,7 @@ class ShowMainPage extends Component {
                         <div className="book-authors">{book.authors}</div>
                       </div>
                     </li>
-                  )))}
+                  ))}
                 </ol>
               </div>
             </div>
@@ -100,7 +99,6 @@ class ShowMainPage extends Component {
         </div>
       </div>
     )
-  }
 }
 
 export default ShowMainPage
