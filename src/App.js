@@ -7,7 +7,7 @@ import './App.css'
 
 class BooksApp extends Component {
   state = {
-    currentlyReading: [
+    "Currently Reading": [
       {
         "id": "To Kill a Mockingbird",
         "title": "To Kill a Mockingbird",
@@ -30,7 +30,7 @@ class BooksApp extends Component {
       }
     ],
 
-    wantToRead: [
+    "Want to Read": [
       {
         "id": "1776",
         "title": "1776",
@@ -53,7 +53,7 @@ class BooksApp extends Component {
       }
     ],
 
-    read: [
+    "Read": [
       {
         "id": "The Hobbit",
         "title": "The Hobbit",
@@ -92,6 +92,7 @@ class BooksApp extends Component {
       <div className="app">
         <Route exact path="/" render={() => (
           <ShowMainPage
+            bookshelves={this.state}
             currentlyReading={this.state.currentlyReading}
             wantToRead={this.state.wantToRead}
             read={this.state.read}
