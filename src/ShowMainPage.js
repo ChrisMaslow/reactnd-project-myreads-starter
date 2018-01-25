@@ -14,11 +14,14 @@ class ShowMainPage extends Component {
               <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {this.props.books.map((book) => ( book.bookshelf === 'currentlyReading' && (
+                  {this.props.books.map((book) => ( book.shelf === 'currentlyReading' && (
                     <li key={book.id}>
                       <div className="book">
                         <div className="book-top">
-                          <div className="book-cover" style={book.cover}></div>
+                          <div
+                            className="book-cover"
+                            style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
+                          ></div>
                           <div className="book-shelf-changer">
                             <select>
                               <option value="none" disabled>Move to...</option>
@@ -41,11 +44,14 @@ class ShowMainPage extends Component {
               <h2 className="bookshelf-title">Want to Read</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {this.props.books.map((book) => ( book.bookshelf === 'wantToRead' && (
+                  {this.props.books.map((book) => ( book.shelf === 'wantToRead' && (
                     <li key={book.id}>
                       <div className="book">
                         <div className="book-top">
-                          <div className="book-cover" style={book.cover}></div>
+                          <div
+                            className="book-cover"
+                            style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
+                          ></div>
                           <div className="book-shelf-changer">
                             <select>
                               <option value="none" disabled>Move to...</option>
@@ -68,11 +74,14 @@ class ShowMainPage extends Component {
               <h2 className="bookshelf-title">Read</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {this.props.books.map((book) => ( book.bookshelf === 'read' && (
+                  {this.props.books.map((book) => ( book.shelf === 'read' && (
                     <li key={book.id}>
                       <div className="book">
                         <div className="book-top">
-                          <div className="book-cover" style={book.cover}></div>
+                          <div
+                            className="book-cover"
+                            style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
+                          ></div>
                           <div className="book-shelf-changer">
                             <select>
                               <option value="none" disabled>Move to...</option>
