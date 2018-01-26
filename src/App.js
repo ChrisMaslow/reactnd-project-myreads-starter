@@ -10,19 +10,13 @@ class BooksApp extends Component {
     super(props);
     this.state = {
       books:[]
-    };
+    }
   }
-
+  
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
     })
-  }
-
-  changeShelf = (id, newShelf) => {
-    this.setState()
-
-    BooksAPI.update({id}, newShelf)
   }
 
   render() {
@@ -31,7 +25,6 @@ class BooksApp extends Component {
         <Route exact path="/" render={() => (
           <ShowMainPage
             books={this.state.books}
-            changeShelf={this.changeShelf}
           />
         )}/>
         <Route path="/search" render={({ history }) => (

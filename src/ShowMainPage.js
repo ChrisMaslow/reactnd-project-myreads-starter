@@ -1,17 +1,15 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 
 class ShowMainPage extends Component {
-  static propTypes = {
-    books: PropTypes.array.isRequired,
-    changeShelf: PropTypes.func.isRequired
+
+  changeShelf = (id, newShelf) => {
+    console.log(id, newShelf);
+    BooksAPI.update({id}, newShelf)
   }
 
   render() {
-    const { books, changeShelf } = this.props
-
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -32,7 +30,7 @@ class ShowMainPage extends Component {
                             style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
                           ></div>
                           <div className="book-shelf-changer">
-                            <select value={book.shelf} onChange={(event) => this.changeShelf(book.id, event.target.value)}>
+                            <select defaultValue={book.shelf} onChange={(event) => this.changeShelf(book.id, event.target.value)}>
                               <option value="none" disabled>Move to...</option>
                               <option value="currentlyReading">Currently Reading</option>
                               <option value="wantToRead">Want to Read</option>
