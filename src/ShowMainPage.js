@@ -23,11 +23,20 @@ class ShowMainPage extends Component {
                             style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
                           ></div>
                           <div className="book-shelf-changer">
-                            <select>
+                            <select value={book.shelf}>
                               <option value="none" disabled>Move to...</option>
-                              <option value="currentlyReading">Currently Reading</option>
-                              <option value="wantToRead">Want to Read</option>
-                              <option value="read">Read</option>
+                              <option
+                                onSelect={() => this.props.onCurrently(book.id)}
+                                value="currentlyReading"
+                              >Currently Reading</option>
+                              <option
+                                value="wantToRead"
+                                onClick={() => this.props.onWantTo(book.id)}
+                              >Want to Read</option>
+                              <option
+                                value="read"
+                                onClick={() => this.props.onRead(book.id)}
+                              >Read</option>
                               <option value="none">None</option>
                             </select>
                           </div>
@@ -53,7 +62,7 @@ class ShowMainPage extends Component {
                             style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
                           ></div>
                           <div className="book-shelf-changer">
-                            <select>
+                            <select value={book.shelf}>
                               <option value="none" disabled>Move to...</option>
                               <option value="currentlyReading">Currently Reading</option>
                               <option value="wantToRead">Want to Read</option>
@@ -83,7 +92,7 @@ class ShowMainPage extends Component {
                             style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
                           ></div>
                           <div className="book-shelf-changer">
-                            <select>
+                            <select value={book.shelf}>
                               <option value="none" disabled>Move to...</option>
                               <option value="currentlyReading">Currently Reading</option>
                               <option value="wantToRead">Want to Read</option>

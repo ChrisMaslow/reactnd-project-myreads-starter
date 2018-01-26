@@ -6,8 +6,16 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 class BooksApp extends Component {
-  state = {
-    books:[]
+  constructor(props) {
+    super(props);
+    this.state = {
+      books:[]
+    };
+    //this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({});
   }
 
   componentDidMount() {
@@ -16,11 +24,39 @@ class BooksApp extends Component {
     })
   }
 
+  setCurrently = (id) => {
+    console.log('setCurrently')
+    //this.setState((id) => ({
+      //bookshelf: 'currentlyReading'
+
+    //}))
+    //BooksAPI.update(id, 'currentlyReading')
+  }
+
+  setWantTo = (book) => {
+    this.setState(
+      book.shelf: 'wantToRead'
+    )
+    BooksAPI.update(book.id, 'wantToRead')
+  }
+
+  setRead = (book) => {
+    this.setState((book) => ({
+      bookshelf: 'read'
+    }))
+    BooksAPI.update(book.id, 'read')
+  }
+
   render() {
     return (
       <div className="app">
         <Route exact path="/" render={() => (
-          <ShowMainPage books={this.state.books}/>
+          <ShowMainPage
+            books={this.state.books}
+            onCurrently={this.setCurrently}
+            onWantTo={this.setWantTo}
+            onRead={this.setRead}
+          />
         )}/>
         <Route path="/search" render={({ history }) => (
           <ShowSearchPage/>
