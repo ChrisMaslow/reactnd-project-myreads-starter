@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import * as BooksAPI from './BooksAPI'
 
 class ShowMainPage extends Component {
+
+  changeShelf = (id, newShelf) => {
+    BooksAPI.update({id}, newShelf)
+  }
+
   render() {
     return (
       <div className="list-books">
@@ -23,20 +29,11 @@ class ShowMainPage extends Component {
                             style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
                           ></div>
                           <div className="book-shelf-changer">
-                            <select defaultValue={book.shelf} onChange={this.handleChange}>
+                            <select value={book.shelf} onChange={(event) => this.changeShelf(book.id, event.target.value)}>
                               <option value="none" disabled>Move to...</option>
-                              <option
-                                onSelect={() => this.props.onCurrently(book.id)}
-                                value="currentlyReading"
-                              >Currently Reading</option>
-                              <option
-                                value="wantToRead"
-                                onClick={() => this.props.onWantTo(book.id)}
-                              >Want to Read</option>
-                              <option
-                                value="read"
-                                onClick={() => this.props.onRead(book.id)}
-                              >Read</option>
+                              <option value="currentlyReading">Currently Reading</option>
+                              <option value="wantToRead">Want to Read</option>
+                              <option value="read">Read</option>
                               <option value="none">None</option>
                             </select>
                           </div>
@@ -62,7 +59,7 @@ class ShowMainPage extends Component {
                             style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
                           ></div>
                           <div className="book-shelf-changer">
-                            <select defaultValue={book.shelf} onChange={this.handleChange}>
+                            <select value={book.shelf}>
                               <option value="none" disabled>Move to...</option>
                               <option value="currentlyReading">Currently Reading</option>
                               <option value="wantToRead">Want to Read</option>
@@ -92,7 +89,7 @@ class ShowMainPage extends Component {
                             style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
                           ></div>
                           <div className="book-shelf-changer">
-                            <select defaultValue={book.shelf} onChange={this.handleChange}>
+                            <select value={book.shelf}>
                               <option value="none" disabled>Move to...</option>
                               <option value="currentlyReading">Currently Reading</option>
                               <option value="wantToRead">Want to Read</option>
@@ -122,42 +119,3 @@ class ShowMainPage extends Component {
 }
 
 export default ShowMainPage
-
-
-<div className="bookshelf-books">
-  <ol className="books-grid">
-    {this.props.books.map((book) => ( book.shelf === 'currentlyReading' && (
-      <li key={book.id}>
-        <div className="book">
-          <div className="book-top">
-            <div
-              className="book-cover"
-              style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
-            ></div>
-            <div className="book-shelf-changer">
-              <select defaultValue={book.shelf} onChange={this.handleChange}>
-                <option value="none" disabled>Move to...</option>
-                <option
-                  onSelect={() => this.props.onCurrently(book.id)}
-                  value="currentlyReading"
-                >Currently Reading</option>
-                <option
-                  value="wantToRead"
-                  onClick={() => this.props.onWantTo(book.id)}
-                >Want to Read</option>
-                <option
-                  value="read"
-                  onClick={() => this.props.onRead(book.id)}
-                >Read</option>
-                <option value="none">None</option>
-              </select>
-            </div>
-          </div>
-          <div className="book-title">{book.title}</div>
-          <div className="book-authors">{book.authors}</div>
-        </div>
-      </li>
-    )))}
-  </ol>
-</div>
-</div>
