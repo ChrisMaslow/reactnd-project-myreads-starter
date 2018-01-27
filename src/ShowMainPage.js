@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import * as BooksAPI from './BooksAPI'
+import PropTypes from 'prop-types'
 
 class ShowMainPage extends Component {
-
-  changeShelf = (id, newShelf) => {
-    console.log(id, newShelf);
-    BooksAPI.update({id}, newShelf)
+  static propTypes = {
+    changeShelf: PropTypes.func.isRequired
   }
 
   render() {
+    const { changeShelf } = this.props
+
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -30,7 +30,7 @@ class ShowMainPage extends Component {
                             style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
                           ></div>
                           <div className="book-shelf-changer">
-                            <select defaultValue={book.shelf} onChange={(event) => this.changeShelf(book.id, event.target.value)}>
+                            <select defaultValue={book.shelf} onChange={(event) => changeShelf(book, event.target.value)}>
                               <option value="none" disabled>Move to...</option>
                               <option value="currentlyReading">Currently Reading</option>
                               <option value="wantToRead">Want to Read</option>
@@ -60,7 +60,7 @@ class ShowMainPage extends Component {
                             style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
                           ></div>
                           <div className="book-shelf-changer">
-                            <select value={book.shelf} onChange={(event) => this.changeShelf(book.id, event.target.value)}>
+                            <select value={book.shelf} onChange={(event) => changeShelf(book, event.target.value)}>
                               <option value="none" disabled>Move to...</option>
                               <option value="currentlyReading">Currently Reading</option>
                               <option value="wantToRead">Want to Read</option>
@@ -90,7 +90,7 @@ class ShowMainPage extends Component {
                             style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
                           ></div>
                           <div className="book-shelf-changer">
-                            <select value={book.shelf} onChange={(event) => this.changeShelf(book.id, event.target.value)}>
+                            <select value={book.shelf} onChange={(event) => changeShelf(book, event.target.value)}>
                               <option value="none" disabled>Move to...</option>
                               <option value="currentlyReading">Currently Reading</option>
                               <option value="wantToRead">Want to Read</option>

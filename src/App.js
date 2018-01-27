@@ -6,17 +6,31 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 class BooksApp extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      books:[]
-    }
+  state = {
+    books:[]
   }
-  
+
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
     })
+  }
+
+  bookShelfChange = (book, newShelf) => {
+
+    book.shelf = newShelf
+
+    let updateBooks = this.state.books.filter(
+        b => b.id !== book.id
+      )
+
+    updateBooks.push(book)
+
+    this.setState((state) => ({
+      books: updateBooks
+    }))
+
+    BooksAPI.update({id: book.id}, newShelf)
   }
 
   render() {
@@ -25,6 +39,7 @@ class BooksApp extends Component {
         <Route exact path="/" render={() => (
           <ShowMainPage
             books={this.state.books}
+            changeShelf={this.bookShelfChange}
           />
         )}/>
         <Route path="/search" render={({ history }) => (
