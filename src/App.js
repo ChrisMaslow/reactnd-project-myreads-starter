@@ -17,13 +17,13 @@ class BooksApp extends Component {
   }
 
   bookShelfChange = (book, newShelf) => {
-
+    //更新目标图书的shelf
     book.shelf = newShelf
-
-    let updateBooks = this.state.books.filter(
+    //返回不包含目标图书的对象数组
+    const updateBooks = this.state.books.filter(
         b => b.id !== book.id
       )
-
+    //将更新后的目标图书push到对象数组
     updateBooks.push(book)
 
     this.setState((state) => ({
@@ -43,7 +43,10 @@ class BooksApp extends Component {
           />
         )}/>
         <Route path="/search" render={({ history }) => (
-          <ShowSearchPage/>
+          <ShowSearchPage
+            books={this.state.books}
+            changeShelf={this.bookShelfChange}
+          />
         )}/>
       </div>
     )
