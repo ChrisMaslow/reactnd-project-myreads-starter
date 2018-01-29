@@ -8,7 +8,7 @@ class ShowMainPage extends Component {
   }
 
   render() {
-    const { books, changeShelf } = this.props
+    const { changeShelf } = this.props
 
     return (
       <div className="list-books">
@@ -21,7 +21,7 @@ class ShowMainPage extends Component {
               <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {books.map((book) => ( book.shelf === 'currentlyReading' && (
+                  {this.props.books.map((book) => ( book.shelf === 'currentlyReading' && (
                     <li key={book.id}>
                       <div className="book">
                         <div className="book-top">
@@ -30,7 +30,7 @@ class ShowMainPage extends Component {
                             style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
                           ></div>
                           <div className="book-shelf-changer">
-                            <select value={book.shelf} onChange={(event) => changeShelf(book, event.target.value)}>
+                            <select defaultValue={book.shelf} onChange={(event) => changeShelf(book, event.target.value)}>
                               <option value="none" disabled>Move to...</option>
                               <option value="currentlyReading">Currently Reading</option>
                               <option value="wantToRead">Want to Read</option>
@@ -51,7 +51,7 @@ class ShowMainPage extends Component {
               <h2 className="bookshelf-title">Want to Read</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {books.map((book) => ( book.shelf === 'wantToRead' && (
+                  {this.props.books.map((book) => ( book.shelf === 'wantToRead' && (
                     <li key={book.id}>
                       <div className="book">
                         <div className="book-top">
@@ -81,7 +81,7 @@ class ShowMainPage extends Component {
               <h2 className="bookshelf-title">Read</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {books.map((book) => ( book.shelf === 'read' && (
+                  {this.props.books.map((book) => ( book.shelf === 'read' && (
                     <li key={book.id}>
                       <div className="book">
                         <div className="book-top">

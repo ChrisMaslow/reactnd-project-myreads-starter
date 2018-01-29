@@ -6,11 +6,8 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 class BooksApp extends Component {
-
   state = {
-    books: [],
-    matchBooks: [],
-    query: ''
+    books:[]
   }
 
   componentDidMount() {
@@ -19,30 +16,21 @@ class BooksApp extends Component {
     })
   }
 
-  changeShelf = (book, newShelf) => {
+  bookShelfChange = (book, newShelf) => {
     //更新目标图书的shelf
     book.shelf = newShelf
-    //返回不包含目标图书的实例
+    //返回不包含目标图书的对象数组
     const updateBooks = this.state.books.filter(
         b => b.id !== book.id
       )
     //将更新后的目标图书push到对象数组
     updateBooks.push(book)
 
-    this.setState({books: updateBooks})
+    this.setState((state) => ({
+      books: updateBooks
+    }))
 
     BooksAPI.update({id: book.id}, newShelf)
-  }
-
-  updateQuery = (query) => {
-    this.setState({ query: query.trim() })
-    if (this.state.query) {
-      BooksAPI.search(this.state.query).then((matchBooks) => {
-        this.setState({ matchBooks })
-      })
-    } else {
-      this.setState({ matchBooks: [] })
-    }
   }
 
   render() {
@@ -51,16 +39,13 @@ class BooksApp extends Component {
         <Route exact path="/" render={() => (
           <ShowMainPage
             books={this.state.books}
-            changeShelf={this.changeShelf}
+            changeShelf={this.bookShelfChange}
           />
         )}/>
         <Route path="/search" render={({ history }) => (
           <ShowSearchPage
             books={this.state.books}
-            matchBooks={this.state.matchBooks}
-            query={this.state.query}
-            changeShelf={this.changeShelf}
-            updateQuery={this.updateQuery}
+            changeShelf={this.bookShelfChange}
           />
         )}/>
       </div>

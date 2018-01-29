@@ -1,16 +1,34 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import * as BooksAPI from './BooksAPI'
 import PropTypes from 'prop-types'
+import escapeRegExp from 'escape-string-regexp'
 
 class ShowSearchPage extends Component {
   static propTypes = {
-    matchBooks: PropTypes.array.isRequired,
-    changeShelf: PropTypes.func.isRequired,
-    updateQuery: PropTypes.func.isRequired
+    books: PropTypes.array.isRequired,
+    changeShelf: PropTypes.func.isRequired
+  }
+
+  state = {
+    query: '',
+    matchBooks:[]
+  }
+
+  updateQuery = (query) => {
+    this.setState({ query })
+    BooksAPI.search(query).then((matchBooks) => {
+      this.setState({ matchBooks })
+    })
+  }
+
+  clearQuery = () => {
+    this.setState({ query: '' })
   }
 
   render() {
-    const { matchBooks, changeShelf, updateQuery } = this.props
+    const { books, changeShelf } = this.props
+    const { query } = this.state
 
     return (
       <div className="search-books">
@@ -31,14 +49,14 @@ class ShowSearchPage extends Component {
             <input
               type="text"
               placeholder="Search by title or author"
-
-              onChange={(event) => updateQuery(event.target.value)}
+              value={this.state.query}
+              onChange={(event) => this.updateQuery(event.target.value)}
             />
           </div>
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            { matchBooks.map((book) => (
+            {this.state.matchBooks.map((book) => (
               <li key={book.id}>
                 <div className="book">
                   <div className="book-top">
@@ -47,7 +65,7 @@ class ShowSearchPage extends Component {
                       style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
                     ></div>
                     <div className="book-shelf-changer">
-                      <select onChange={(event) => changeShelf(book, event.target.value)}>
+                      <select defaultValue={book.shelf} onChange={(event) => changeShelf(book, event.target.value)}>
                         <option value="none" disabled>Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>
