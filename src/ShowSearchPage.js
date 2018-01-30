@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import PropTypes from 'prop-types'
-import escapeRegExp from 'escape-string-regexp'
+
 
 class ShowSearchPage extends Component {
   static propTypes = {
@@ -15,20 +15,47 @@ class ShowSearchPage extends Component {
     matchBooks:[]
   }
 
-  updateQuery = (query) => {
-    this.setState({ query })
-    BooksAPI.search(query).then((matchBooks) => {
-      this.setState({ matchBooks })
-    })
+  searchTerms = [
+    'Android', 'Art', 'Artificial Intelligence', 'Astronomy',
+    'Austen', 'Baseball', 'Basketball', 'Bhagat', 'Biography',
+    'Brief', 'Business', 'Camus', 'Cervantes', 'Christie',
+    'Classics', 'Comics', 'Cook', 'Cricket', 'Cycling',
+    'Desai', 'Design', 'Development', 'Digital Marketing', 'Drama',
+    'Drawing', 'Dumas', 'Education', 'Everything', 'Fantasy',
+    'Film', 'Finance', 'First', 'Fitness', 'Football',
+    'Future', 'Games', 'Gandhi', 'Homer', 'Horror',
+    'Hugo', 'Ibsen', 'Journey', 'Kafka', 'King',
+    'Lahiri', 'Larsson', 'Learn', 'Literary Fiction', 'Make',
+    'Manage', 'Marquez', 'Money', 'Mystery', 'Negotiate',
+    'Painting', 'Philosophy', 'Photography', 'Poetry', 'Production',
+    'Programming', 'React', 'Redux', 'River', 'Robotics',
+    'Rowling', 'Satire', 'Science Fiction', 'Shakespeare', 'Singh',
+    'Swimming', 'Tale', 'Thrun', 'Time', 'Tolstoy',
+    'Travel', 'Ultimate', 'Virtual Reality', 'Web Development', 'iOS'
+  ]
+
+  searchQuery = (query) => {
+    let matchTerms = this.searchTerms.some(
+      (element, index, array) => { return element.includes(this.state.query) }
+    )
+    if (matchTerms && query) {
+      BooksAPI.search(query).then((matchBooks) => {
+        this.setState({ matchBooks })
+      })
+    } else {
+      this.setState({ matchBooks: [] })
+    }
+
   }
 
-  clearQuery = () => {
-    this.setState({ query: '' })
+  updateQuery = (query) => {
+    this.setState({ query: query.trim() })
+    this.searchQuery( this.state.query )
   }
 
   render() {
-    const { books, changeShelf } = this.props
-    const { query } = this.state
+    const { changeShelf } = this.props
+    const { matchBooks } = this.state
 
     return (
       <div className="search-books">
@@ -49,14 +76,15 @@ class ShowSearchPage extends Component {
             <input
               type="text"
               placeholder="Search by title or author"
-              value={this.state.query}
+
               onChange={(event) => this.updateQuery(event.target.value)}
             />
           </div>
         </div>
         <div className="search-books-results">
+          {JSON.stringify(this.state.matchBooks.length)}
           <ol className="books-grid">
-            {this.state.matchBooks.map((book) => (
+            {matchBooks.map((book) => (
               <li key={book.id}>
                 <div className="book">
                   <div className="book-top">

@@ -40,9 +40,21 @@ import App from './App'
 "canonicalVolumeLink":"https://books.google.com/books/about/Learning_Web_Development_with_React_and.html?hl=&id=sJf1vQAACAAJ",
 "id":"sJf1vQAACAAJ",
 "shelf":"currentlyReading"}
+
+search fail
+{"error":"empty query","items":[]}
+
 **/
 
 it('renders without crashing', () => {
   const div = document.createElement('div')
   ReactDOM.render(<App />, div)
 })
+
+
+mySundae.then(function(sundae) {
+    console.log(`Time to eat my delicious ${sundae}`);
+}, function(msg) {
+    console.log(msg);
+    self.goCry(); // not a real method
+});
