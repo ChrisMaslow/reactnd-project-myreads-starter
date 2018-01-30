@@ -16,7 +16,7 @@ class BooksApp extends Component {
     })
   }
 
-  bookShelfChange = (book, newShelf) => {
+  changeShelf = (book, newShelf) => {
     //更新目标图书的shelf
     book.shelf = newShelf
     //返回不包含目标图书的对象数组
@@ -39,13 +39,13 @@ class BooksApp extends Component {
         <Route exact path="/" render={() => (
           <ShowMainPage
             books={this.state.books}
-            changeShelf={this.bookShelfChange}
+            changeShelf={this.changeShelf}
           />
         )}/>
         <Route path="/search" render={({ history }) => (
           <ShowSearchPage
             books={this.state.books}
-            changeShelf={this.bookShelfChange}
+            changeShelf={this.changeShelf}
           />
         )}/>
       </div>

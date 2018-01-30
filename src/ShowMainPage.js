@@ -1,15 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
+
 
 class ShowMainPage extends Component {
-  static propTypes = {
-    changeShelf: PropTypes.func.isRequired
-  }
 
   render() {
     const { changeShelf } = this.props
-
     return (
       <div className="list-books">
         <div className="list-books-title">

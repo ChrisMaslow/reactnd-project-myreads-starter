@@ -1,14 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
-import PropTypes from 'prop-types'
-
 
 class ShowSearchPage extends Component {
-  static propTypes = {
-    books: PropTypes.array.isRequired,
-    changeShelf: PropTypes.func.isRequired
-  }
 
   state = {
     query: '',
@@ -56,8 +50,23 @@ class ShowSearchPage extends Component {
   }
 
   render() {
-    const { changeShelf } = this.props
+    const { books, changeShelf } = this.props
     const { query, matchBooks } = this.state
+
+    let showingBooks, i, j
+
+    for (i = 0; i < matchBooks.length; i++) {
+      for (j = 0; j < books.length; j++) {
+        if ( matchBooks[i].id === books[j].id ) {
+          matchBooks[i].shelf = books[j].shelf
+        } else {
+          matchBooks[i].shelf = 'none'
+        }
+      }
+    }
+
+    showingBooks = matchBooks
+
 
     return (
       <div className="search-books">
@@ -76,8 +85,9 @@ class ShowSearchPage extends Component {
           </div>
         </div>
         <div className="search-books-results">
+          {JSON.stringify(showingBooks[0])}
           <ol className="books-grid">
-            {matchBooks.map((book) => (
+            { showingBooks.map((book) => (
               <li key={book.id}>
                 <div className="book">
                   <div className="book-top">
@@ -86,7 +96,7 @@ class ShowSearchPage extends Component {
                       style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
                     ></div>
                     <div className="book-shelf-changer">
-                      <select value="none" onChange={(event) => changeShelf(book, event.target.value)}>
+                      <select defaultValue={book.shelf} onChange={(event) => changeShelf(book, event.target.value)}>
                         <option value="none" disabled>Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>
