@@ -44,6 +44,9 @@ import App from './App'
 search fail
 {"error":"empty query","items":[]}
 
+搜索会出错的字母：
+b, l, o, q, v, x, y, z
+
 **/
 
 it('renders without crashing', () => {

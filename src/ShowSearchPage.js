@@ -12,7 +12,7 @@ class ShowSearchPage extends Component {
 
   state = {
     query: '',
-    matchBooks:[]
+    matchBooks: []
   }
 
   searchTerms = [
@@ -34,28 +34,30 @@ class ShowSearchPage extends Component {
     'Travel', 'Ultimate', 'Virtual Reality', 'Web Development', 'iOS'
   ]
 
+  //当query不是空字符串且匹配 Search Terms 才执行 BooksAPI.search()
   searchQuery = (query) => {
-    let matchTerms = this.searchTerms.some(
-      (element, index, array) => { return element.includes(this.state.query) }
+    const matchTerms = this.searchTerms.some(
+      (element, index, array) => {
+        return element.toLowerCase().includes(query.toLowerCase())
+      }
     )
     if (matchTerms && query) {
-      BooksAPI.search(query).then((matchBooks) => {
-        this.setState({ matchBooks })
+      BooksAPI.search( query ).then((matchBooks) => {
+       this.setState({ matchBooks })
       })
     } else {
       this.setState({ matchBooks: [] })
     }
-
   }
 
   updateQuery = (query) => {
     this.setState({ query: query.trim() })
-    this.searchQuery( this.state.query )
+    this.searchQuery( query.trim() )
   }
 
   render() {
     const { changeShelf } = this.props
-    const { matchBooks } = this.state
+    const { query, matchBooks } = this.state
 
     return (
       <div className="search-books">
@@ -65,24 +67,15 @@ class ShowSearchPage extends Component {
             className="close-search"
           >Close</Link>
           <div className="search-books-input-wrapper">
-            {/*
-              NOTES: The search from BooksAPI is limited to a particular set of search terms.
-              You can find these search terms here:
-              https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-              However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-              you don't find a specific author or title. Every search is limited by search terms.
-            */}
             <input
               type="text"
               placeholder="Search by title or author"
-
+              value={query}
               onChange={(event) => this.updateQuery(event.target.value)}
             />
           </div>
         </div>
         <div className="search-books-results">
-          {JSON.stringify(this.state.matchBooks.length)}
           <ol className="books-grid">
             {matchBooks.map((book) => (
               <li key={book.id}>
@@ -93,7 +86,7 @@ class ShowSearchPage extends Component {
                       style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
                     ></div>
                     <div className="book-shelf-changer">
-                      <select defaultValue={book.shelf} onChange={(event) => changeShelf(book, event.target.value)}>
+                      <select value="none" onChange={(event) => changeShelf(book, event.target.value)}>
                         <option value="none" disabled>Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>
