@@ -26,9 +26,7 @@ class BooksApp extends Component {
     //将更新后的目标图书push到对象数组
     updateBooks.push(book)
 
-    this.setState((state) => ({
-      books: updateBooks
-    }))
+    this.setState({ books: updateBooks })
 
     BooksAPI.update({id: book.id}, newShelf)
   }

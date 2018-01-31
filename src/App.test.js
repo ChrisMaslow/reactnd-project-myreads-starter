@@ -44,7 +44,7 @@ import App from './App'
 search fail
 {"error":"empty query","items":[]}
 
-搜索会出错的字母：
+搜索会出错的单个字母：
 b, l, o, q, v, x, y, z
 
 **/
@@ -61,3 +61,13 @@ mySundae.then(function(sundae) {
     console.log(msg);
     self.goCry(); // not a real method
 });
+
+for (i = 0; i < matchBooks.length; i++) {
+  for (j = 0; j < books.length; j++) {
+    if ( matchBooks[i].id === books[j].id ) {
+      matchBooks[i].shelf = books[j].shelf
+    } else {
+      matchBooks[i].shelf = 'none'
+    }
+  }
+}

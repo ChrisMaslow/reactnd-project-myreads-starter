@@ -55,10 +55,12 @@ class ShowSearchPage extends Component {
 
     let showingBooks, i, j
 
+    //通过比对图书的id查找所在的shelf
     for (i = 0; i < matchBooks.length; i++) {
       for (j = 0; j < books.length; j++) {
         if ( matchBooks[i].id === books[j].id ) {
           matchBooks[i].shelf = books[j].shelf
+          break
         } else {
           matchBooks[i].shelf = 'none'
         }
@@ -66,7 +68,6 @@ class ShowSearchPage extends Component {
     }
 
     showingBooks = matchBooks
-
 
     return (
       <div className="search-books">
@@ -85,7 +86,6 @@ class ShowSearchPage extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          {JSON.stringify(showingBooks[0])}
           <ol className="books-grid">
             { showingBooks.map((book) => (
               <li key={book.id}>
