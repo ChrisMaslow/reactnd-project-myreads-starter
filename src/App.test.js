@@ -83,3 +83,8 @@ for (i = 0; i < matchBooks.length; i++) {
     }}
   />
 )}/>
+
+<Link
+  to="/"
+  className="close-search"
+>Close</Link>

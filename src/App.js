@@ -51,7 +51,6 @@ class BooksApp extends Component {
             books={this.state.books}
             changeShelf={(book, newShelf) => {
               this.changeShelf(book, newShelf)
-              history.push('/')
             }}
             backMain={() => {
               this.backMain()
