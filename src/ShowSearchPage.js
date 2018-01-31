@@ -8,30 +8,31 @@ class ShowSearchPage extends Component {
     matchBooks: []
   }
 
+  //Biography, Design
   searchTerms = [
     'Android', 'Art', 'Artificial Intelligence', 'Astronomy',
-    'Austen', 'Baseball', 'Basketball', 'Bhagat', 'Biography',
+    'Austen', 'Baseball', 'Basketball', 'Bhagat',
     'Brief', 'Business', 'Camus', 'Cervantes', 'Christie',
     'Classics', 'Comics', 'Cook', 'Cricket', 'Cycling',
-    'Desai', 'Design', 'Development', 'Digital Marketing', 'Drama',
+    'Desai', 'Development', 'Digital Marketing', 'Drama',
     'Drawing', 'Dumas', 'Education', 'Everything', 'Fantasy',
     'Film', 'Finance', 'First', 'Fitness', 'Football',
     'Future', 'Games', 'Gandhi', 'Homer', 'Horror',
-    'Hugo', 'Ibsen', 'Journey', 'Kafka', 'King',
-    'Lahiri', 'Larsson', 'Learn', 'Literary Fiction', 'Make',
+    'Hugo', 'Ibsen', 'Kafka', 'King', 'Larsson', 'Learn', 'Make',
     'Manage', 'Marquez', 'Money', 'Mystery', 'Negotiate',
     'Painting', 'Philosophy', 'Photography', 'Poetry', 'Production',
     'Programming', 'React', 'Redux', 'River', 'Robotics',
     'Rowling', 'Satire', 'Science Fiction', 'Shakespeare', 'Singh',
-    'Swimming', 'Tale', 'Thrun', 'Time', 'Tolstoy',
-    'Travel', 'Ultimate', 'Virtual Reality', 'Web Development', 'iOS'
+    'Swimming', 'Tale', 'Tolstoy', 'Travel', 'Ultimate',
+    'Web Development', 'iOS'
   ]
 
   //当query不是空字符串且匹配 Search Terms 才执行 BooksAPI.search()
+  //添加正则表达式
   searchQuery = (query) => {
     const matchTerms = this.searchTerms.some(
       (element, index, array) => {
-        return element.toLowerCase().includes(query.toLowerCase())
+        return element.includes(query)
       }
     )
     if (matchTerms && query) {

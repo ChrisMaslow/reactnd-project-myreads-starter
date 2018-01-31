@@ -49,6 +49,12 @@ b, l, o, q, v, x, y, z
 
 **/
 
+const matchTerms = this.searchTerms.some(
+  (element, index, array) => {
+    return element.toLowerCase().includes(query.toLowerCase())
+  }
+)
+
 it('renders without crashing', () => {
   const div = document.createElement('div')
   ReactDOM.render(<App />, div)
@@ -88,3 +94,7 @@ for (i = 0; i < matchBooks.length; i++) {
   to="/"
   className="close-search"
 >Close</Link>
+
+BooksAPI.getAll().then((books) => {
+  this.setState({ books })
+})
