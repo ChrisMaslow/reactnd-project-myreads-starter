@@ -50,17 +50,19 @@ class ShowSearchPage extends Component {
   }
 
   render() {
-    const { books, changeShelf } = this.props
+    const { books, changeShelf, backMain } = this.props
     const { query, matchBooks } = this.state
 
     //通过比对图书的id查找所在的shelf
-    let i, j;
+    let showingBooks, i, j;
 
-    for (i = 0; i < matchBooks.length; i++) {
-      matchBooks[i].shelf = 'none'
+    showingBooks = matchBooks;
+
+    for (i = 0; i < showingBooks.length; i++) {
+      showingBooks[i].shelf = 'none'
       for (j = 0; j < books.length; j++) {
-        if ( matchBooks[i].id === books[j].id ) {
-          matchBooks[i].shelf = books[j].shelf
+        if ( showingBooks[i].id === books[j].id ) {
+          showingBooks[i].shelf = books[j].shelf
         }
       }
     }
@@ -68,10 +70,10 @@ class ShowSearchPage extends Component {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <Link
-            to="/"
+          <a
+            onClick={(event) => backMain(event.target.value)}
             className="close-search"
-          >Close</Link>
+          >Close</a>
           <div className="search-books-input-wrapper">
             <input
               type="text"
@@ -83,7 +85,7 @@ class ShowSearchPage extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            { matchBooks.map((book) => (
+            { showingBooks.map((book) => (
               <li key={book.id}>
                 <div className="book">
                   <div className="book-top">

@@ -5,7 +5,23 @@ import { Link } from 'react-router-dom'
 class ShowMainPage extends Component {
 
   render() {
-    const { changeShelf } = this.props
+    const { books, changeShelf } = this.props
+
+    let shelf_CR = [],
+        shelf_WTR = [],
+        shelf_R = [],
+        i;
+
+    for (i = 0; i < books.length; i++) {
+      if (books[i].shelf === 'currentlyReading') {
+        shelf_CR.push(books[i]);
+      } else if (books[i].shelf === 'wantToRead') {
+        shelf_WTR.push(books[i]);
+      } else {
+        shelf_R.push(books[i]);
+      }
+    }
+
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -17,7 +33,7 @@ class ShowMainPage extends Component {
               <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {this.props.books.map((book) => ( book.shelf === 'currentlyReading' && (
+                  {shelf_CR.map((book) => (
                     <li key={book.id}>
                       <div className="book">
                         <div className="book-top">
@@ -39,7 +55,7 @@ class ShowMainPage extends Component {
                         <div className="book-authors">{book.authors}</div>
                       </div>
                     </li>
-                  )))}
+                  ))}
                 </ol>
               </div>
             </div>
@@ -47,7 +63,7 @@ class ShowMainPage extends Component {
               <h2 className="bookshelf-title">Want to Read</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {this.props.books.map((book) => ( book.shelf === 'wantToRead' && (
+                  {shelf_WTR.map((book) => (
                     <li key={book.id}>
                       <div className="book">
                         <div className="book-top">
@@ -69,7 +85,7 @@ class ShowMainPage extends Component {
                         <div className="book-authors">{book.authors}</div>
                       </div>
                     </li>
-                  )))}
+                  ))}
                 </ol>
               </div>
             </div>
@@ -77,7 +93,7 @@ class ShowMainPage extends Component {
               <h2 className="bookshelf-title">Read</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {this.props.books.map((book) => ( book.shelf === 'read' && (
+                  {shelf_R.map((book) => (
                     <li key={book.id}>
                       <div className="book">
                         <div className="book-top">
@@ -99,7 +115,7 @@ class ShowMainPage extends Component {
                         <div className="book-authors">{book.authors}</div>
                       </div>
                     </li>
-                  )))}
+                  ))}
                 </ol>
               </div>
             </div>

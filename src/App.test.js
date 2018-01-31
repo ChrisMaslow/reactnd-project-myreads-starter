@@ -73,3 +73,13 @@ for (i = 0; i < matchBooks.length; i++) {
     }
   }
 }
+
+<Route path="/search" render={({ history }) => (
+  <ShowSearchPage
+    books={this.state.books}
+    changeShelf={(book, newShelf) => {
+      this.changeShelf(book, newShelf)
+      history.push('/')
+    }}
+  />
+)}/>
