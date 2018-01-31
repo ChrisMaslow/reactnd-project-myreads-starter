@@ -50,7 +50,7 @@ class ShowSearchPage extends Component {
   }
 
   render() {
-    const { books, changeShelf, backMain } = this.props
+    const { books, changeShelf } = this.props
     const { query, matchBooks } = this.state
 
     //通过比对图书的id查找所在的shelf
@@ -70,10 +70,10 @@ class ShowSearchPage extends Component {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <a
-            onClick={(event) => backMain(event.target.value)}
+          <Link
+            to="/"
             className="close-search"
-          >Close</a>
+          >Close</Link>
           <div className="search-books-input-wrapper">
             <input
               type="text"

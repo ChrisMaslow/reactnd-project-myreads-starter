@@ -10,12 +10,13 @@ class BooksApp extends Component {
     books:[]
   }
 
-  backMain = (e) => {
-    this.setState({ books: this.state.books })
+  componentDidMount() {
+    BooksAPI.getAll().then((books) => {
+      this.setState({ books })
+    })
   }
 
-
-  componentDidMount() {
+  backMain() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
     })
@@ -48,12 +49,14 @@ class BooksApp extends Component {
         <Route path="/search" render={({ history }) => (
           <ShowSearchPage
             books={this.state.books}
-            changeShelf={this.changeShelf}
-            backMain={ () => {
-              this.backMain
+            changeShelf={(book, newShelf) => {
+              this.changeShelf(book, newShelf)
               history.push('/')
-              }
-            }
+            }}
+            backMain={() => {
+              this.backMain()
+              history.push('/')
+            }}
           />
         )}/>
       </div>
