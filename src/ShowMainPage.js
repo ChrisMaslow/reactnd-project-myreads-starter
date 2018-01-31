@@ -7,6 +7,7 @@ class ShowMainPage extends Component {
   render() {
     const { books, changeShelf } = this.props
 
+    //将books中的实例按shelf分类。
     let shelf_CR = [],
         shelf_WTR = [],
         shelf_R = [],
@@ -17,7 +18,7 @@ class ShowMainPage extends Component {
         shelf_CR.push(books[i]);
       } else if (books[i].shelf === 'wantToRead') {
         shelf_WTR.push(books[i]);
-      } else {
+      } else if (books[i].shelf === 'read') {
         shelf_R.push(books[i]);
       }
     }
