@@ -62,10 +62,12 @@ mySundae.then(function(sundae) {
     self.goCry(); // not a real method
 });
 
+
 for (i = 0; i < matchBooks.length; i++) {
   for (j = 0; j < books.length; j++) {
     if ( matchBooks[i].id === books[j].id ) {
       matchBooks[i].shelf = books[j].shelf
+      break
     } else {
       matchBooks[i].shelf = 'none'
     }

@@ -57,12 +57,10 @@ class ShowSearchPage extends Component {
 
     //通过比对图书的id查找所在的shelf
     for (i = 0; i < matchBooks.length; i++) {
+      matchBooks[i].shelf = 'none'
       for (j = 0; j < books.length; j++) {
         if ( matchBooks[i].id === books[j].id ) {
           matchBooks[i].shelf = books[j].shelf
-          break
-        } else {
-          matchBooks[i].shelf = 'none'
         }
       }
     }
