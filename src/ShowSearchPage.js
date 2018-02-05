@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import * as BooksAPI from './BooksAPI'
 
 class ShowSearchPage extends Component {
-
-  state = {
-    query: '',
-    matchBooks: []
+  constructor(props) {
+    super(props)
+    this.state = {
+      query: '',
+      matchBooks: [],
+      testVar: []
+    }
   }
-
   //Biography, Design
   searchTerms = [
     'Android', 'Art', 'Artificial Intelligence', 'Astronomy',
@@ -27,21 +29,22 @@ class ShowSearchPage extends Component {
     'Web Development', 'iOS'
   ]
 
-  //当query不是空字符串且匹配 Search Terms 才执行 BooksAPI.search()
-  //添加正则表达式
-  searchQuery = (query) => {
-    const matchTerms = this.searchTerms.some(
-      (element, index, array) => {
-        return element.includes(query)
-      }
+  componentDidMount() {
+    BooksAPI.search('Thrun').then( (testVar) =>
+      this.setState({ testVar })
     )
-    if (matchTerms && query) {
-      BooksAPI.search( query ).then((matchBooks) => {
-       this.setState({ matchBooks })
-      })
-    } else {
-      this.setState({ matchBooks: [] })
-    }
+  }
+
+  //当query不是空字符串且匹配 Search Terms 才执行 BooksAPI.search()
+  searchQuery = (query) => {
+    BooksAPI.search( query ).then((matchBooks) => {
+     this.setState({ matchBooks })
+    })
+    //{"error":"empty query","items":[]}
+    if (
+      this.state.matchBooks.items === [] ) {
+      //this.setState({ matchBooks: [] })
+      }
   }
 
   updateQuery = (query) => {
@@ -84,6 +87,8 @@ class ShowSearchPage extends Component {
           </div>
         </div>
         <div className="search-books-results">
+          {JSON.stringify(this.state.testVar.length)}
+          {JSON.stringify(this.state.testVar[0])}
           <ol className="books-grid">
             { showingBooks.map((book) => (
               <li key={book.id}>

@@ -49,6 +49,21 @@ b, l, o, q, v, x, y, z
 
 **/
 
+searchQuery = (query) => {
+  const matchTerms = this.searchTerms.some(
+    (element, index, array) => {
+      return element.includes(query)
+    }
+  )
+  if (matchTerms && query) {
+    BooksAPI.search( query ).then((matchBooks) => {
+     this.setState({ matchBooks })
+    })
+  } else {
+    this.setState({ matchBooks: [] })
+  }
+}
+
 const matchTerms = this.searchTerms.some(
   (element, index, array) => {
     return element.toLowerCase().includes(query.toLowerCase())
