@@ -19,7 +19,11 @@ class ShowSearchPage extends Component {
 
   updateQuery = (query) => {
     this.setState({ query: query.trim() })
-    this.searchQuery( query.trim() )
+    if ( query.trim() ) {
+      this.searchQuery( query.trim() )
+    } else {    
+      this.setState({ matchBooks: [] })
+    }
   }
 
   render() {
@@ -62,7 +66,7 @@ class ShowSearchPage extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          {JSON.stringify(showingBooks)}
+          {JSON.stringify(showingBooks.length)}
           <ol className="books-grid">
             { showingBooks.map((book) => (
               <li key={book.id}>
