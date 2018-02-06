@@ -40,7 +40,9 @@ class ShowMainPage extends Component {
                         <div className="book-top">
                           <div
                             className="book-cover"
-                            style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
+                            style={{width:128, height:193,
+                              backgroundImage:`url(${book.imageLinks ? book.imageLinks.smallThumbnail : ''})`
+                            }}
                           ></div>
                           <div className="book-shelf-changer">
                             <select defaultValue={book.shelf} onChange={(event) => changeShelf(book, event.target.value)}>
@@ -70,7 +72,9 @@ class ShowMainPage extends Component {
                         <div className="book-top">
                           <div
                             className="book-cover"
-                            style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
+                            style={{width:128, height:193,
+                              backgroundImage:`url(${book.imageLinks ? book.imageLinks.smallThumbnail : ''})`
+                            }}
                           ></div>
                           <div className="book-shelf-changer">
                             <select value={book.shelf} onChange={(event) => changeShelf(book, event.target.value)}>
@@ -100,7 +104,9 @@ class ShowMainPage extends Component {
                         <div className="book-top">
                           <div
                             className="book-cover"
-                            style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
+                            style={{width:128, height:193,
+                              backgroundImage:`url(${book.imageLinks ? book.imageLinks.smallThumbnail : ''})`
+                            }}
                           ></div>
                           <div className="book-shelf-changer">
                             <select value={book.shelf} onChange={(event) => changeShelf(book, event.target.value)}>

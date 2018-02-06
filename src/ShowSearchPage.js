@@ -6,45 +6,15 @@ class ShowSearchPage extends Component {
     super(props)
     this.state = {
       query: '',
-      matchBooks: [],
-      testVar: []
+      matchBooks: []
     }
   }
-  //Biography, Design
-  searchTerms = [
-    'Android', 'Art', 'Artificial Intelligence', 'Astronomy',
-    'Austen', 'Baseball', 'Basketball', 'Bhagat',
-    'Brief', 'Business', 'Camus', 'Cervantes', 'Christie',
-    'Classics', 'Comics', 'Cook', 'Cricket', 'Cycling',
-    'Desai', 'Development', 'Digital Marketing', 'Drama',
-    'Drawing', 'Dumas', 'Education', 'Everything', 'Fantasy',
-    'Film', 'Finance', 'First', 'Fitness', 'Football',
-    'Future', 'Games', 'Gandhi', 'Homer', 'Horror',
-    'Hugo', 'Ibsen', 'Kafka', 'King', 'Larsson', 'Learn', 'Make',
-    'Manage', 'Marquez', 'Money', 'Mystery', 'Negotiate',
-    'Painting', 'Philosophy', 'Photography', 'Poetry', 'Production',
-    'Programming', 'React', 'Redux', 'River', 'Robotics',
-    'Rowling', 'Satire', 'Science Fiction', 'Shakespeare', 'Singh',
-    'Swimming', 'Tale', 'Tolstoy', 'Travel', 'Ultimate',
-    'Web Development', 'iOS'
-  ]
 
-  componentDidMount() {
-    BooksAPI.search('Thrun').then( (testVar) =>
-      this.setState({ testVar })
-    )
-  }
-
-  //当query不是空字符串且匹配 Search Terms 才执行 BooksAPI.search()
+  //BooksAPI.search()返回错误对象则不显示任何图书。
   searchQuery = (query) => {
     BooksAPI.search( query ).then((matchBooks) => {
      this.setState({ matchBooks })
     })
-    //{"error":"empty query","items":[]}
-    if (
-      this.state.matchBooks.items === [] ) {
-      //this.setState({ matchBooks: [] })
-      }
   }
 
   updateQuery = (query) => {
@@ -59,7 +29,12 @@ class ShowSearchPage extends Component {
     //通过比对图书的id查找所在的shelf
     let showingBooks, i, j;
 
-    showingBooks = matchBooks;
+    //没有搜索结果时返回 {"error":"empty query","items":[]}
+    if ('error' in matchBooks) {
+      showingBooks = []
+    } else {
+      showingBooks = matchBooks
+    }
 
     for (i = 0; i < showingBooks.length; i++) {
       showingBooks[i].shelf = 'none'
@@ -87,8 +62,7 @@ class ShowSearchPage extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          {JSON.stringify(this.state.testVar.length)}
-          {JSON.stringify(this.state.testVar[0])}
+          {JSON.stringify(showingBooks)}
           <ol className="books-grid">
             { showingBooks.map((book) => (
               <li key={book.id}>
@@ -96,7 +70,9 @@ class ShowSearchPage extends Component {
                   <div className="book-top">
                     <div
                       className="book-cover"
-                      style={{width:128, height:193, backgroundImage:`url(${book.imageLinks.smallThumbnail})`}}
+                      style={{width:128, height:193,
+                        backgroundImage:`url(${book.imageLinks ? book.imageLinks.smallThumbnail : ''})`
+                      }}
                     ></div>
                     <div className="book-shelf-changer">
                       <select defaultValue={book.shelf} onChange={(event) => changeShelf(book, event.target.value)}>
