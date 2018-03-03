@@ -12,16 +12,16 @@ class ShowSearchPage extends Component {
 
   //BooksAPI.search()返回错误对象则不显示任何图书。
   searchQuery = (query) => {
-    BooksAPI.search( query ).then((matchBooks) => {
+    BooksAPI.search( query.trim() ).then((matchBooks) => {
      this.setState({ matchBooks })
     })
   }
 
   updateQuery = (query) => {
-    this.setState({ query: query.trim() })
+    this.setState({ query })
     if ( query.trim() ) {
-      this.searchQuery( query.trim() )
-    } else {    
+      this.searchQuery( query )
+    } else {
       this.setState({ matchBooks: [] })
     }
   }
@@ -66,7 +66,6 @@ class ShowSearchPage extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          {JSON.stringify(showingBooks.length)}
           <ol className="books-grid">
             { showingBooks.map((book) => (
               <li key={book.id}>
